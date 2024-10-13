@@ -1291,6 +1291,7 @@ div.mail-preview {
     height: 1rem;
     width: 1rem;
     margin-left: 4px;
+    object-fit: cover;
   }
   img,
   a[data-lightbox] img,
