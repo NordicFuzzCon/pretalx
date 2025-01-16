@@ -116,7 +116,11 @@ class SubmissionSerializer(I18nAwareModelSerializer):
         return AnswerSerializer(queryset, many=True).data
 
     def get_slots(self, obj):
-        return SlotSerializer(obj.slots.all().filter(is_visible=True, schedule=self.schedule), read_only=True, many=True).data
+        return SlotSerializer(
+            obj.slots.all().filter(is_visible=True, schedule=self.schedule),
+            read_only=True,
+            many=True
+        ).data
 
     class Meta:
         model = Submission
