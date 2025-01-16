@@ -119,7 +119,7 @@ class SubmissionSerializer(I18nAwareModelSerializer):
         return SlotSerializer(
             obj.slots.all().filter(is_visible=True, schedule=self.schedule),
             read_only=True,
-            many=True
+            many=True,
         ).data
 
     class Meta:
