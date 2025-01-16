@@ -78,7 +78,7 @@ def test_submission_serializer_for_organiser(submission, orga_user, resource, ta
             "do_not_record",
             "is_featured",
             "content_locale",
-            "slot",
+            "slots",
             "image",
             "answers",
             "track",
@@ -104,7 +104,7 @@ def test_submission_serializer_for_organiser(submission, orga_user, resource, ta
         assert data["tags"] == [tag.tag]
         assert data["tag_ids"] == [tag.id]
         assert data["submission_type"] == str(submission.submission_type.name)
-        assert data["slot"] is None
+        assert data["slots"] == []
         assert (
             data["created"]
             == submission.created.astimezone(submission.event.tz).isoformat()
@@ -137,7 +137,7 @@ def test_submission_serializer(submission, resource):
             "do_not_record",
             "is_featured",
             "content_locale",
-            "slot",
+            "slots",
             "image",
             "track",
             "track_id",
@@ -147,7 +147,7 @@ def test_submission_serializer(submission, resource):
         assert isinstance(data["speakers"], list)
         assert data["speakers"] == []
         assert data["submission_type"] == str(submission.submission_type.name)
-        assert data["slot"] is None
+        assert data["slots"] == []
         assert data["resources"] == [
             {
                 "resource": "http://testserver" + resource.resource.url,
