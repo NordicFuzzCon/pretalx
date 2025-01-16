@@ -2,12 +2,12 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, stable ]
     paths-ignore:
       - 'doc/**'
       - 'src/pretalx/locale/**'
   pull_request:
-    branches: [ main ]
+    branches: [ main, stable ]
     paths-ignore:
       - 'doc/**'
       - 'src/pretalx/locale/**'
