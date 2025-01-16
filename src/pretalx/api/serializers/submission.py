@@ -35,7 +35,7 @@ class SlotSerializer(I18nAwareModelSerializer):
 
     class Meta:
         model = TalkSlot
-        fields = ("room_id", "room", "start", "end")
+        fields = ("id", "room_id", "room", "start", "end")
 
 
 class BreakSerializer(SlotSerializer):
@@ -47,9 +47,7 @@ class BreakSerializer(SlotSerializer):
 class SubmissionSerializer(I18nAwareModelSerializer):
     submission_type = SlugRelatedField(slug_field="name", read_only=True)
     track = SlugRelatedField(slug_field="name", read_only=True)
-    slot = SlotSerializer(
-        TalkSlot.objects.none().filter(is_visible=True), read_only=True
-    )
+    slots = SerializerMethodField()
     duration = SerializerMethodField()
     speakers = SerializerMethodField()
     resources = ResourceSerializer(Resource.objects.none(), read_only=True, many=True)
@@ -64,11 +62,17 @@ class SubmissionSerializer(I18nAwareModelSerializer):
         self.can_view_speakers = kwargs.pop("can_view_speakers", False)
         self.event = kwargs.pop("event", None)
         questions = kwargs.pop("questions", [])
+        self.schedule = kwargs.pop("schedule", None)
+
+        # if not schedule and self.event:
+        #     schedule = Schedule.objects.filter(event=self.event, published__isnull=False).last()
+
         self.questions = (
             questions
             if questions == "all"
             else [question for question in questions if question]
         )
+
         super().__init__(*args, **kwargs)
         for field in ("title", "abstract", "description"):
             setattr(self, f"get_{field}", partial(self.get_attribute, attribute=field))
@@ -111,6 +115,9 @@ class SubmissionSerializer(I18nAwareModelSerializer):
             queryset = queryset.filter(question__in=self.questions)
         return AnswerSerializer(queryset, many=True).data
 
+    def get_slots(self, obj):
+        return SlotSerializer(obj.slots.all().filter(is_visible=True, schedule=self.schedule), read_only=True, many=True).data
+
     class Meta:
         model = Submission
         fields = [
@@ -129,7 +136,7 @@ class SubmissionSerializer(I18nAwareModelSerializer):
             "do_not_record",
             "is_featured",
             "content_locale",
-            "slot",
+            "slots",
             "image",
             "resources",
             "answers",
