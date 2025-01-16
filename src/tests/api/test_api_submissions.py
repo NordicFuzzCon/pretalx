@@ -30,15 +30,15 @@ def test_submission_slot_serializer(slot):
             "do_not_record",
             "is_featured",
             "content_locale",
-            "slot",
+            "slots",
             "image",
             "track",
             "track_id",
             "resources",
             "answers",
         }
-        assert set(data["slot"].keys()) == {"start", "end", "room", "room_id"}
-        assert data["slot"]["room"] == slot.room.name
+        assert set(data["slots"][0].keys()) == {"start", "end", "room", "room_id"}
+        assert data["slots"][0]["room"] == slot.room.name
 
 
 @pytest.mark.django_db
