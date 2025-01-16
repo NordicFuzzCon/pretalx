@@ -69,3 +69,7 @@ jobs:
         run: python -m pretalx help
       - name: Make sure we can run through all migrations
         run: python -m pretalx migrate
+      - name: Upload build package
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist/*
