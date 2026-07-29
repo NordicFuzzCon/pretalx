@@ -23,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ env.push_to_docker_hub == 'true' && 'pretalx/standalone' || format('ghcr.io/{0}', github.repository) }}
+          images: harbor.nordicfuzzcon.com/pretalx/standalone
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -34,8 +34,8 @@ jobs:
       - name: Extract Harbor credentials
         id: creds
         run: |
-          echo "username=$(jq -r '.username' <<< '${{ secrets.HARBOR_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
-          echo "password=$(jq -r '.secret' <<< '${{ secrets.HARBOR_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
+          echo "username=$(jq -r '.username' <<< '${{ secrets.HARBOR_TOKEN }}')" >> "$GITHUB_OUTPUT"
+          echo "password=$(jq -r '.secret' <<< '${{ secrets.HARBOR_TOKEN }}')" >> "$GITHUB_OUTPUT"
           
 
       - name: Login to DockerHub
