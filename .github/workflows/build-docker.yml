@@ -23,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: harbor.nordicfuzzcon.com/pretalx/standalone
+          images: harbor.nordicfuzzcon.com/library/pretalx
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
