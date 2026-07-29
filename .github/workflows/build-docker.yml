@@ -31,11 +31,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - id: creds
+      - name: Extract Harbor credentials
+        id: creds
         run: |
-          echo '${{ secrets.REGISTRY_CREDS }}' > creds.json
-          echo "username=$(jq -r .name creds.json)" >> $GITHUB_OUTPUT
-          echo "password=$(jq -r .secret creds.json)" >> $GITHUB_OUTPUT
+          echo "username=$(jq -r '.username' <<< '${{ secrets.HARBOR_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
+          echo "password=$(jq -r '.secret' <<< '${{ secrets.HARBOR_CREDENTIALS }}')" >> "$GITHUB_OUTPUT"
           
 
       - name: Login to DockerHub
