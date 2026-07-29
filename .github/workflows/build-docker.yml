@@ -34,7 +34,7 @@ jobs:
       - name: Extract Harbor credentials
         id: creds
         run: |
-          echo "username=$(jq -r '.username' <<< '${{ secrets.HARBOR_TOKEN }}')" >> "$GITHUB_OUTPUT"
+          echo "username=$(jq -r '.name' <<< '${{ secrets.HARBOR_TOKEN }}')" >> "$GITHUB_OUTPUT"
           echo "password=$(jq -r '.secret' <<< '${{ secrets.HARBOR_TOKEN }}')" >> "$GITHUB_OUTPUT"
           
 
