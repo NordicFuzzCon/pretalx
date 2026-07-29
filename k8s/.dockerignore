@@ -1,0 +1,54 @@
+# .dockerignore for the k8s Docker build context
+# Keep the build context small by excluding editor files, caches,
+# virtualenvs and test/build artifacts.
+
+# Version control
+.git
+.gitignore
+
+# Python caches and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+
+# Test and tooling
+.pytest_cache/
+.tox/
+.coverage
+coverage.xml
+htmlcov/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Node (if present in project)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker files that should not be included in context
+Dockerfile.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# K8s local overrides, logs and runtime state
+*.log
+*.local
