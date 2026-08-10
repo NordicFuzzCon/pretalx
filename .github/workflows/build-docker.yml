@@ -4,10 +4,10 @@ on:
   workflow_dispatch: # allows to be run manually
   push:
      branches:
-      - 'v2026.1'
+      - 'v2026.2.1'
   pull_request:
     branches:
-      - 'v2026.1'
+      - 'v2026.2.1'
 
 jobs:
   build_and_push:
