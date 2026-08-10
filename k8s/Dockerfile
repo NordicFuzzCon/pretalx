@@ -9,6 +9,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml /pretalx/
+COPY _build /pretalx/_build
 COPY src /pretalx/src
 
 RUN uv pip install --system --no-cache-dir -U pip setuptools wheel  && \
